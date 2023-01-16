@@ -33,28 +33,31 @@ on this layer and navigate to the `Export` menu to extract the data in any of th
 
 The goal was to create a plugin which depends only on libraries shipped with a standard QGIS installation - QGIS
 comes with a preinstalled Python environment, covering many common third party libraries including the `scipy` stack,
-`PyQt5`, and `pyqgis`. Thus, there was no need to set up a virtual environment. as my project interpreter
-I chose that preinstalled Python environment. On my Mac, using QGIS 3.28, the Python executable is located at
+`PyQt5`, and `pyqgis`. Thus, it made sense to choose that same environment as the project interpreter instead of
+creating a virtual environment. On my Mac, using QGIS 3.28, the Python executable is located at
 `/Applications/QGIS.app/Contents/MacOS/bin/python3`.
 
 You may still wish to add `PyQt5` to your standard Python environment (or a virtual environment) so that the `pyuic5`
-CLI is covered by your Python path.
+CLI is covered by your Python path - or append the path to `bin` of your QGIS default Python environment to your PATH
+variable.
 
 ### Creating the plugin's graphical user interface
 
-Theoretically, the default QGIS Python environment comes with all the libraries we need to build the plugin. However,
-that also requires solid familiarity with the `PyQt5` framework. That framework is used to code the graphical user
-interface of the plugin (and everything else of QGIS). Being not familiar with `PyQt5` at all, we chose to create
-the GUI instead using [Qt Creator](https://www.qt.io/product/development-tools). This is how it works:
+The default QGIS Python environment comes with all the libraries we need to build the plugin. That also requires solid
+familiarity with the `PyQt5` framework. That framework is used to code the graphical user
+interface of the plugin (and everything else of QGIS). Instead, we chose to create
+the GUI using [Qt Creator](https://www.qt.io/product/development-tools). This is how it works:
 
-1. Open the Qt Creator desktop app and create a GUI (window, or "dialog") using the graphical toolbox. Save results as a `<gui-file>.ui` file.
+1. Open the Qt Creator desktop app and create a GUI (window, or "dialog") using the graphical toolbox. Save results as a
+`<gui-file>.ui` file.
 2. Assuming that the file is in the current working directory of your terminal, parse it with
 ```bash
 pyuic5 -o <gui-file>.py <gui-file>.ui
 ```
-3. Inherit the class from `<gui-file>.py` side by side with the `QDialog` class and add functionality as needed.
+3. Create a new Dialog class by inheriting the class from `<gui-file>.py` side by side with the `QDialog` class and add
+functionality as needed.
 
-See the two examples shipped with this plugin, in submodule [geoapify_geocoder/gui](geoapify_geocoder/gui). The two
+Submodule [geoapify_geocoder/gui](geoapify_geocoder/gui) covers two such Dialog examples. The two
 `.ui` files have been created with `Qt Creator` and parsed with `pyuic5` to the corresponding `.py` files. File
 [dialogs.py](geoapify_geocoder/gui/dialogs.py) is the result of the last step.
 
@@ -63,7 +66,7 @@ See the two examples shipped with this plugin, in submodule [geoapify_geocoder/g
 #### The main plugin class
 
 Module [geoapify_geocoder.py](geoapify_geocoder/geoapify_geocoder.py) is where you should start with when exploring
-the implementation details. (Not all but most) QGIS plugins consist of such a class implementation, with methods
+the implementation details. (Not all but most) QGIS plugins consist of such a main module, with methods
 `initGui` and `unload` being mandatory. `initGui` is responsible for adding the plugin menu. Every "action" gets
 its own sub menu entry. And we define what happens when an action is executed. This plugin comes with three actions:
 
@@ -78,8 +81,9 @@ stored as a QGIS setting.
 #### Else
 
 Our plugin is using network requests for geocoding. Python developers prefer the `requests` library for such jobs.
-In QGIS, however, this may result in errors. Instead, it is recommended to use QGIS alternatives. Our example in
-module [client.py](geoapify_geocoder/common/client.py) demonstrates how to do this for GET requests.
+In QGIS, however, this may result in errors. Instead, it is recommended to use `QgsBlockingNetworkRequest` and similar
+`pyqgis` alternatives. Our example in module [client.py](geoapify_geocoder/common/client.py) demonstrates how to send
+GET requests.
 
 Our reverse geocoding action is using the input from a mouse click. To make this work, we have implemented a rather
 generic [click_tool](geoapify_geocoder/common/click_tool.py).
