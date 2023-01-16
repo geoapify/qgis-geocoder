@@ -3,19 +3,22 @@
 ## How to install this plugin from source
 
 Your QGIS installation comes with a default directory tree of configuration files and more. In recent versions of QGIS
-you can find this `default` directory by opening QGIS and navigating to `Settings > User Profiles > Open Active Profile Folder`.
+you can find this `default` directory by opening QGIS and navigating to
+`Settings > User Profiles > Open Active Profile Folder`.
 
 This will open the `default` directory in your system's file explorer. Copying the entire
 [geoapify_geocoder](geoapify_geocoder) directory to `default/python/plugins/` will make the plugin available after a
-restart of QGIS.
+restart of QGIS. You can activate the plugin in the Plugin menu `Plugins > Manage and Install Plugins... > Installed`.
 
 ## How to use this plugin
 
 1. Add a tile layer to QGIS. E.g., you can configure and add an "XYZ Tile" in the `Browser` menu of QGIS. If you have
 not already, right-click on "XYZ Tile", "New Connection...", and add the configuration details of your tiles provider.
-If you chose Geoapify as your tile server, check out [Geoapify map tiles](https://apidocs.geoapify.com/docs/maps/map-tiles/#about).
+If you chose Geoapify as your tile server, check out
+[Geoapify map tiles](https://apidocs.geoapify.com/docs/maps/map-tiles/#about).
 Double-click on the newly created tile connection to add a tile layer.
-2. Make sure you have activated the `Geoapify Geocoder` plugin by navigating to `Plugins > Manage and Install Plugins... > Installed`.
+2. Make sure you have activated the `Geoapify Geocoder` plugin by navigating to
+`Plugins > Manage and Install Plugins... > Installed`.
 Add a check mark to our plugin. If you cannot find that plugin, you may need to review again the installation process
 or simply restart QGIS.
 3. Now our plugin menu should appear under menu `Web > Geoapify Geocoding`. Start with the `Settings` sub menu and add
