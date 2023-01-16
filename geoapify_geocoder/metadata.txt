@@ -1,0 +1,31 @@
+[general]
+name=Geoapify Geocoder
+qgisMinimumVersion=3.10
+description=Forward and reverse geocoding using the Geoapify API.
+version=0.1
+author=Paul Kinsvater
+email=paul.kinsvater@gmail.com
+
+about=The Geoapify API covers several geo webservices such as forward and reverse geocoding. Sign up for a free API key at https://geoapify.com. See the repository for instructions of how to use this plugin.
+
+tracker=https://github.com/geoapify/qgis-geocoder/issues
+repository=https://github.com/geoapify/qgis-geocoder
+# End of mandatory metadata
+
+# Recommended items:
+
+# hasProcessingProvider=no
+# Uncomment the following line and add your changelog:
+# changelog=
+
+# Tags are comma separated with spaces allowed
+tags=geoapify, geocoding, reverse geocoding
+
+homepage=https://apidocs.geoapify.com/
+category=Web
+icon=gui/img/geoapify-logo.png
+
+experimental=False
+
+# deprecated flag (applies to the whole plugin, not just a single version)
+deprecated=False
