@@ -10,15 +10,8 @@ about=The Geoapify API covers several geo webservices such as forward and revers
 
 tracker=https://github.com/geoapify/qgis-geocoder/issues
 repository=https://github.com/geoapify/qgis-geocoder
-# End of mandatory metadata
+help=https://github.com/geoapify/qgis-geocoder
 
-# Recommended items:
-
-# hasProcessingProvider=no
-# Uncomment the following line and add your changelog:
-# changelog=
-
-# Tags are comma separated with spaces allowed
 tags=geoapify, geocoding, reverse geocoding
 
 homepage=https://apidocs.geoapify.com/
@@ -27,5 +20,4 @@ icon=gui/img/geoapify-logo.png
 
 experimental=False
 
-# deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
