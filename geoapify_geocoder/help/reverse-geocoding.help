@@ -1,0 +1,9 @@
+Before you start, check out instructions in settings.help. Note in particular that you need a valid API key which
+you need to add to the plugin's settings menu.
+
+The reverse geocoding action activates a cursor with a cross. Click with this cursor on a map and the corresponding
+point coordinates are reversed geocoded. This means, the address text will be added as a point on the map and as a
+point feature to a vector layer.
+
+See the API docs at https://apidocs.geoapify.com/docs/geocoding/reverse-geocoding/#about to learn more about the
+reverse geocoding API.

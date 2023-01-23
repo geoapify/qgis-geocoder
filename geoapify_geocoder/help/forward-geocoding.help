@@ -1,0 +1,9 @@
+Before you start, check out instructions in settings.help. Note in particular that you need a valid API key which
+you need to add to the plugin's settings menu.
+
+The forward geocoding action comes with a free text search form. The algorithm responds with the top result of
+Geoapify's forward geocoding API. The result is added as a point on the active map tile and as a point feature in
+a vector layer.
+
+See the API docs at https://apidocs.geoapify.com/docs/geocoding/forward-geocoding/#about to learn more about the
+forward geocoding API.

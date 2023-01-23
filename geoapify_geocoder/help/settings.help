@@ -1,0 +1,10 @@
+Set your Geoapify API key in the settings menu of the Geoapify Geocoding plugin. Go to geoapify.com and create a
+key for free. The free tier comes with 3000 credits per day which allows you to forward or reverse geocode 3000
+locations per day.
+
+Next you should add a tile layer to QGIS. E.g., you can configure and add an "XYZ Tile" in the `Browser` menu of QGIS. If you have
+not already, right-click on "XYZ Tile", "New Connection...", and add the configuration details of your tiles provider.
+If you chose Geoapify as your tile server, check out [Geoapify map tiles](https://apidocs.geoapify.com/docs/maps/map-tiles/#about).
+Double-click on the newly created tile connection to add a tile layer.
+
+This is enough to get started with forward and reverse geociding. See the respective help files.
