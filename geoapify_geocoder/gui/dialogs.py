@@ -5,6 +5,7 @@ from .ConfigUi import Ui_ConfigDialog
 from .ForwardUi import Ui_GeoCoding
 
 API_KEY_SETTINGS_NAME = 'GeoapifyGeocoding/apiKey'
+OUTPUT_LAYER_NAME = 'GeoapifyGeocoding/outputLayer'
 
 
 class ConfigDialog(QDialog, Ui_ConfigDialog):
@@ -15,6 +16,9 @@ class ConfigDialog(QDialog, Ui_ConfigDialog):
         settings = QSettings()
         current_key = settings.value(API_KEY_SETTINGS_NAME, '<your-api-key>')
         self.apiKey.setText(current_key)
+
+        current_layer_name = settings.value(OUTPUT_LAYER_NAME, 'Geoapify Results')
+        self.outputLayer.setText(current_layer_name)
 
 
 class ForwardDialog(QDialog, Ui_GeoCoding):

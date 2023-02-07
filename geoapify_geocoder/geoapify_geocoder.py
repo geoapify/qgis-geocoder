@@ -11,7 +11,7 @@ from typing import Callable
 
 from .common.click_tool import ClickTool
 from .common.client import QgsGeoapifyClient
-from .gui.dialogs import ConfigDialog, ForwardDialog, API_KEY_SETTINGS_NAME
+from .gui.dialogs import ConfigDialog, ForwardDialog, API_KEY_SETTINGS_NAME, OUTPUT_LAYER_NAME
 
 
 class GeoapifyGeocoder:
@@ -25,7 +25,6 @@ class GeoapifyGeocoder:
         self.menu = None
 
         self._dir_icons = os.path.dirname(__file__) + '/gui/img/'
-        self._data_layer_name = 'Geoapify Results'
 
     def initGui(self):
         """Add the plugin's menu to the QGIS GUI.
@@ -96,9 +95,9 @@ class GeoapifyGeocoder:
             res = client.geocode(text=search_input)
             point = QgsPointXY(res['properties']['lon'], res['properties']['lat'])
             label = res['properties']['formatted']
-            self._add_point_to_layer(point=point, label=label)
+            self._add_point_to_layer(point=point, label=label, properties=res['properties'])
 
-    def _add_point_to_layer(self, point: QgsPointXY, label: str) -> None:
+    def _add_point_to_layer(self, point: QgsPointXY, label: str, properties: dict) -> None:
         """Adds a point feature to the layer called "Geoapify".
 
         This point layer will display labels on the map by default. You can disable labels in the GUI. We also
@@ -107,32 +106,38 @@ class GeoapifyGeocoder:
 
         :param point: QgsPointXY instance in (lon, lat) coordinates.
         :param label: label displayed on the map.
+        :param properties: dictionary of properties from the geocoding result.
         """
-        if not QgsProject.instance().mapLayersByName(layerName=self._data_layer_name):
+        settings = QSettings()
+        data_layer_name = settings.value(OUTPUT_LAYER_NAME, 'Geoapify Results')
+
+        if not QgsProject.instance().mapLayersByName(layerName=data_layer_name):
             # Create new layer if not exists:
-            vl = QgsVectorLayer('Point', self._data_layer_name, 'memory')
+            vl = QgsVectorLayer('Point', data_layer_name, 'memory')
 
             # Show labels on map by default:
             label_settings = QgsPalLayerSettings()
-            label_settings.fieldName = "Address"
+            label_settings.fieldName = "formatted"
             vl.setLabeling(QgsVectorLayerSimpleLabeling(label_settings))
             vl.setLabelsEnabled(True)
 
-            # We can store any number of properties - below we just store our label as the "Address" attribute
+            # We can store any number of properties - below we just store a few
             pr = vl.dataProvider()
             # Enter editing mode
             vl.startEditing()
             # add fields
-            pr.addAttributes([QgsField("Address", QVariant.String)])
+            pr.addAttributes([QgsField("formatted", QVariant.String)])
+            pr.addAttributes([QgsField("lon", QVariant.String)])
+            pr.addAttributes([QgsField("lat", QVariant.String)])
             QgsProject.instance().addMapLayer(vl)
         else:
             # Use existing layer:
-            vl = QgsProject.instance().mapLayersByName(layerName=self._data_layer_name)[0]
+            vl = QgsProject.instance().mapLayersByName(layerName=data_layer_name)[0]
 
         # Add point feature to layer - including the label as its only attribute:
         fet = QgsFeature()
         fet.setGeometry(QgsGeometry.fromPointXY(point))
-        fet.setAttributes([label])
+        fet.setAttributes([properties['formatted'], properties['lon'], properties['lat']])
         pr = vl.dataProvider()
         pr.addFeatures([fet])
 
@@ -161,7 +166,7 @@ class GeoapifyGeocoder:
         res = client.reverse_geocode(longitude=point.x(), latitude=point.y())
         point = QgsPointXY(res['properties']['lon'], res['properties']['lat'])
         label = res['properties']['formatted']
-        self._add_point_to_layer(point=point, label=label)
+        self._add_point_to_layer(point=point, label=label, properties=res['properties'])
 
     @staticmethod
     def _show_settings_dialog() -> None:
@@ -176,3 +181,6 @@ class GeoapifyGeocoder:
             settings = QSettings()
             new_val = diag.apiKey.text()
             settings.setValue(API_KEY_SETTINGS_NAME, new_val)
+
+            new_val = diag.outputLayer.text()
+            settings.setValue(OUTPUT_LAYER_NAME, new_val)
