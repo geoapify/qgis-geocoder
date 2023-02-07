@@ -2,9 +2,9 @@
 name=Geoapify Geocoder
 qgisMinimumVersion=3.10
 description=Forward and reverse geocoding using the Geoapify API.
-version=0.1
-author=Paul Kinsvater
-email=paul.kinsvater@gmail.com
+version=0.2
+author=Geoapify GmbH
+email=info@geoapify.com
 
 about=The Geoapify API covers several geo webservices such as forward and reverse geocoding. Sign up for a free API key at https://geoapify.com. See the repository for instructions of how to use this plugin.
 
