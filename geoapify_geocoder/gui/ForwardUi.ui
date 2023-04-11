@@ -1,25 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>GeoCoding</class>
- <widget class="QDialog" name="GeoCoding">
+ <class>GeocodingForm</class>
+ <widget class="QDialog" name="GeocodingForm">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>646</width>
-    <height>150</height>
+    <height>601</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>GeoCoding</string>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
+  <property name="windowTitle">
+   <string>Geoapify Geocoding</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QGroupBox {
+border: none
+}</string>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>false</bool>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
     <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QGroupBox" name="formGroupBox">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="accessibleDescription">
+        <string/>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QGroupBox {
+border: none
+}</string>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+       <property name="checkable">
+        <bool>false</bool>
+       </property>
+       <layout class="QFormLayout" name="formLayout_2">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>20</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>1. Choose input type:</string>
+          </property>
+          <property name="margin">
+           <number>-1</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="inputType">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <item>
+           <property name="text">
+            <string>Address</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Latitude,Longitude</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Longitude,Latitude</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
      <item>
       <widget class="QLabel" name="addressLabel">
        <property name="text">
-        <string>Free text address search:</string>
+        <string>2. Enter lines here:</string>
+       </property>
+       <property name="margin">
+        <number>2</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="addressList">
+       <property name="placeholderText">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="stepLabel">
+       <property name="text">
+        <string>0 lines to process</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QProgressBar" name="progressBar">
+       <property name="value">
+        <number>0</number>
        </property>
       </widget>
      </item>
@@ -31,43 +139,81 @@
       </widget>
      </item>
      <item>
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
       <widget class="QDialogButtonBox" name="buttonBox">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
        <property name="standardButtons">
-        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+        <set>QDialogButtonBox::Close|QDialogButtonBox::Ok</set>
        </property>
+      </widget>
+     </item>
+     <item alignment="Qt::AlignRight">
+      <widget class="QGroupBox" name="gridGroupBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QPushButton" name="closeButton">
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>614</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Close</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="runButton">
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Run</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </item>
     </layout>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>addressList</tabstop>
+  <tabstop>address</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
    <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>GeoCoding</receiver>
+   <signal>clicked(QAbstractButton*)</signal>
+   <receiver>GeocodingForm</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>263</x>
+     <y>554</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -77,13 +223,13 @@
   </connection>
   <connection>
    <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>GeoCoding</receiver>
+   <signal>clicked(QAbstractButton*)</signal>
+   <receiver>GeocodingForm</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>331</x>
+     <y>554</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
@@ -91,5 +237,74 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>inputType</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>GeocodingForm</receiver>
+   <slot>updateListPlaceholder()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>388</x>
+     <y>46</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>322</x>
+     <y>300</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>runButton</sender>
+   <signal>clicked()</signal>
+   <receiver>GeocodingForm</receiver>
+   <slot>toggleProcessing()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>580</x>
+     <y>567</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>322</x>
+     <y>300</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>closeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>GeocodingForm</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>486</x>
+     <y>567</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>322</x>
+     <y>300</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>addressList</sender>
+   <signal>textChanged()</signal>
+   <receiver>GeocodingForm</receiver>
+   <slot>addressListChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>322</x>
+     <y>261</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>322</x>
+     <y>300</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <slot>updateListPlaceholder()</slot>
+  <slot>toggleProcessing()</slot>
+  <slot>addressListChanged()</slot>
+ </slots>
 </ui>

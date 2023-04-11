@@ -13,7 +13,6 @@ from .common.click_tool import ClickTool
 from .common.client import QgsGeoapifyClient
 from .gui.dialogs import ConfigDialog, ForwardDialog, API_KEY_SETTINGS_NAME, OUTPUT_LAYER_NAME
 
-
 class GeoapifyGeocoder:
 
     def __init__(self, iface: QgisInterface):
